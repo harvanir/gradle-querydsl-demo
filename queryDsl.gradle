@@ -1,0 +1,42 @@
+def queryDslOutput = hasProperty("querydslGeneratedDir") ? querydslGeneratedDir : "src/main/generated"
+def queryDslOutputDir = file(queryDslOutput)
+
+println displayName + " QueryDsl Generated Q-Type output dir : " + queryDslOutput
+
+sourceSets {
+    main {
+        java {
+            srcDirs += queryDslOutputDir
+        }
+    }
+}
+
+dependencies {
+    compile 'com.querydsl:querydsl-apt'
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build') {
+    doFirst {
+        if (!queryDslOutputDir.exists()) {
+            logger.info("Creating `$queryDslOutputDir` directory")
+
+            if (!queryDslOutputDir.mkdirs()) {
+                throw new InvalidUserDataException("Unable to create `$queryDslOutputDir` directory")
+            }
+        }
+    }
+
+    source = sourceSets.main.java
+    classpath = configurations.compile
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor",
+            "com.querydsl.apt.jpa.JPAAnnotationProcessor"
+    ]
+    destinationDir = queryDslOutputDir
+}
+
+clean {
+    //noinspection GroovyAssignabilityCheck
+    delete queryDslOutputDir
+}
