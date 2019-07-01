@@ -11,10 +11,6 @@ sourceSets {
     }
 }
 
-dependencies {
-    compile 'com.querydsl:querydsl-apt'
-}
-
 task generateQueryDSL(type: JavaCompile, group: 'build') {
     doFirst {
         if (!queryDslOutputDir.exists()) {
