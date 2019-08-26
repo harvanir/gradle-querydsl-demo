@@ -24,9 +24,12 @@ public class OrderController {
 
   @RequestMapping("/id/{id}")
   public OrderResponse findById(@PathVariable @Valid @NotNull Long id) {
-    return orderService.findById(id).orElseGet(() -> {
-      throw new NotFoundException("Order not found");
-    });
+    return orderService
+        .findById(id)
+        .orElseGet(
+            () -> {
+              throw new NotFoundException("Order not found");
+            });
   }
 
   @RequestMapping
