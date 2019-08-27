@@ -21,11 +21,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceImplTest {
 
-  @InjectMocks
-  private OrderServiceImpl orderService;
+  @InjectMocks private OrderServiceImpl orderService;
 
-  @Mock
-  private OrderRepository orderRepository;
+  @Mock private OrderRepository orderRepository;
 
   @After
   public void after() {
@@ -51,8 +49,8 @@ public class OrderServiceImplTest {
     Assert.assertFalse(orderResponses.isEmpty());
     Assert.assertEquals(1, orderResponses.size());
 
-    orderResponses
-        .forEach(orderResponse -> Assert.assertEquals(order.getId(), orderResponse.getId()));
+    orderResponses.forEach(
+        orderResponse -> Assert.assertEquals(order.getId(), orderResponse.getId()));
 
     verify(orderRepository).findAll();
   }
