@@ -48,6 +48,9 @@ dependencies {
     compileOnly "org.springframework.boot:spring-boot-configuration-processor"
 }
 
+googleJavaFormat {
+    toolVersion = '1.7'
+}
+
 compileJava.dependsOn(generateQueryDSL)
 generateQueryDSL.dependsOn(verifyGoogleJavaFormat)
-verifyGoogleJavaFormat.dependsOn(clean)

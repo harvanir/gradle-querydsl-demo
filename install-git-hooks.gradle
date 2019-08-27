@@ -1,11 +1,14 @@
 tasks.create(name: 'gitExecutableHooks') << {
+    println "gitExecutableHooks..."
     Runtime.getRuntime().exec("chmod 777 .git/hooks/pre-commit");
 }
 
 task installGitHooks(type: Copy) {
+    println "installGitHooks..."
     from new File(rootProject.rootDir, 'pre-commit')
     into { new File(rootProject.rootDir, '.git/hooks') }
 }
 
-gitExecutableHooks.dependsOn installGitHooks
-build.dependsOn gitExecutableHooks
+verifyGoogleJavaFormat.dependsOn(gitExecutableHooks)
+gitExecutableHooks.dependsOn(installGitHooks)
+installGitHooks.dependsOn(clean)
