@@ -1,7 +1,4 @@
-def queryDslOutput = hasProperty("querydslGeneratedDir") ? querydslGeneratedDir : "src/main/generated"
-def queryDslOutputDir = file(queryDslOutput)
-
-println displayName + " QueryDsl Generated Q-Type output dir : " + queryDslOutput
+def queryDslOutputDir = file("src/main/generated")
 
 sourceSets {
     main {
@@ -11,7 +8,7 @@ sourceSets {
     }
 }
 
-task generateQueryDSL(type: JavaCompile, group: 'build') {
+task compileQuerydsl(type: JavaCompile, group: 'build') {
     doFirst {
         if (!queryDslOutputDir.exists()) {
             logger.info("Creating `$queryDslOutputDir` directory")
@@ -33,8 +30,7 @@ task generateQueryDSL(type: JavaCompile, group: 'build') {
 }
 
 clean {
-    //noinspection GroovyAssignabilityCheck
     delete queryDslOutputDir
 }
 
-compileJava.dependsOn(generateQueryDSL)
+compileJava.dependsOn(compileQuerydsl)
