@@ -20,7 +20,7 @@ apply plugin: 'org.springframework.boot'
 apply from: "$rootProject.projectDir/install-git-hooks.gradle"
 apply from: "$rootProject.projectDir/queryDsl.gradle"
 
-group = 'org.harvan.gradle'
+group = 'org.harvanir.gradle'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
