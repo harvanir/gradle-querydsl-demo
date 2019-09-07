@@ -36,3 +36,5 @@ clean {
     //noinspection GroovyAssignabilityCheck
     delete queryDslOutputDir
 }
+
+compileJava.dependsOn(generateQueryDSL)
