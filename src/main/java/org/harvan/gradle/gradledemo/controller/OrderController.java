@@ -7,6 +7,7 @@ import org.harvan.gradle.gradledemo.entity.response.order.OrderResponse;
 import org.harvan.gradle.gradledemo.exception.NotFoundException;
 import org.harvan.gradle.gradledemo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ public class OrderController {
     this.orderService = orderService;
   }
 
-  @RequestMapping("/id/{id}")
+  @GetMapping("/id/{id}")
   public OrderResponse findById(@PathVariable @Valid @NotNull Long id) {
     return orderService
         .findById(id)
@@ -32,7 +33,7 @@ public class OrderController {
             });
   }
 
-  @RequestMapping
+  @GetMapping
   public List<OrderResponse> findAll() {
     return orderService.findAll();
   }
